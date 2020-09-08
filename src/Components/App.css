@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+html,
+body {
+  background-color: rgb(210, 255, 225);
+}
+
+.content {
+  display: flex;
+}
+
+.overflowhidden {
+  overflow: hidden;
+}
+.displaynone {
+  display: none;
+}
