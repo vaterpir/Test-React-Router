@@ -1,0 +1,9 @@
+.table {
+  background-color: #333;
+  overflow-y: scroll;
+}
+
+.table > div {
+  height: 30px;
+  color: #fff;
+}

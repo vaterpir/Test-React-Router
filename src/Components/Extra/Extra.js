@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Table } from "../Table";
 import "./Extra.css";
 
-export const Extra = () => {
-  return <div className="extra">Особое</div>;
+export const Extra = ({ data }) => {
+  return (
+    <div className="extra">
+      {data.data === undefined ? "" : <Table data={data.data} type={"spell"} />}
+    </div>
+  );
 };

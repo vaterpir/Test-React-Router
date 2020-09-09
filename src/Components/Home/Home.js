@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import ReactModal from "react-modal";
+import { Table } from "../Table";
 import "./Home.css";
 
-export const Home = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+export const Home = ({ data }) => {
   return (
     <div className="home">
-      Домашняя
-      <button onClick={() => setIsOpenModal(!isOpenModal)}>Open Modal</button>
-      <ReactModal isOpen={isOpenModal} contentLabel="Minimal Modal Example">
-        <button onClick={() => setIsOpenModal(!isOpenModal)}>
-          Close Modal
-        </button>
-      </ReactModal>
+      {data.data === undefined ? "" : <Table data={data.data} type={"name"} />}
     </div>
   );
 };

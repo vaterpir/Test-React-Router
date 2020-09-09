@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
-import { Menu } from "./Menu/Menu";
+import { Profile } from "./Profile";
 import { Home } from "./Home/Home";
 import { Professors } from "./Professors/Professors";
 import { Students } from "./Students/Students";
@@ -15,7 +15,7 @@ const keyURL = "$2a$10$dSooM7l5aj6uLNFOmwf/SObKzKhMgFSrbie2BUTrRmz5hw/jj6Wme";
 const state = {
   resData: {},
 };
-const getAxios = (url) =>
+const getAxios = (url, setData) =>
   axios
     .get(url, {
       baseURL: baseURL,
@@ -25,7 +25,7 @@ const getAxios = (url) =>
     })
     .then(function (response) {
       state.resData[url] = response;
-      console.log(state);
+      setData(response);
     })
     .catch(function (error) {
       console.log(error);
@@ -34,67 +34,47 @@ const getAxios = (url) =>
       // always executed
     });
 
-window.onload = () => {
-  getAxios("characters");
-  getAxios("spells");
-};
-
 export const App = () => {
-  const [pathRout, setPathRout] = useState("");
+  const [characters, setCharacters] = useState(false);
+  const [spells, setSpells] = useState(false);
+
+  useEffect(() => {
+    getAxios("characters", setCharacters);
+    getAxios("spells", setSpells);
+  });
+
   return (
     <Router>
       <div className="content">
-        <Menu />
+        <div className="menu">
+          <Link to="/">Главная</Link>
+          <Link to="/professors">Учителя</Link>
+          <Link to="/students">Ученики</Link>
+          <Link to="/other">Прочие</Link>
+          <Link to="/extra">Особое</Link>
+        </div>
+
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home data={characters} />
           </Route>
-          <Route path="/professors">
-            <Professors />
+          <Route exact path="/professors">
+            <Professors data={characters} />
           </Route>
-          <Route path="/students">
-            <Students />
+          <Route exact path="/students">
+            <Students data={characters} />
           </Route>
-          <Route path="/other">
-            <Other />
+          <Route exact path="/other">
+            <Other data={characters} />
           </Route>
-          <Route path="/extra">
-            <Extra />
+          <Route exact path="/extra">
+            <Extra data={spells} />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
           </Route>
         </Switch>
       </div>
     </Router>
   );
-}; /* 
-
-/other
-/extra */
-
-/*          <Route path="/dashboard">
-          <Dashboard />
-        </Route>
-
-
-<Router>
-    <div>
-      <div className="navbar">
-        <div>
-          <Link to="/">Home</Link>
-        </div>
-        <div>
-          <Link to="/dashboard">Dashboard</Link>
-        </div>
-      </div>
-
-      <hr />
-
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/dashboard">
-          <Dashboard />
-        </Route>
-      </Switch>
-    </div>
-  </Router> */
+};
