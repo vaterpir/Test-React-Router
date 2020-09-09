@@ -26,6 +26,7 @@ const getAxios = (url, setData) =>
     .then(function (response) {
       state.resData[url] = response;
       setData(response);
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error);
@@ -38,16 +39,16 @@ export const App = () => {
   const [characters, setCharacters] = useState(false);
   const [spells, setSpells] = useState(false);
 
-  useEffect(() => {
-    getAxios("characters", setCharacters);
-    getAxios("spells", setSpells);
-  });
+const  getData = () => {
+  getAxios("characters", setCharacters);
+  getAxios("spells", setSpells);
+}
 
   return (
     <Router>
       <div className="content">
         <div className="menu">
-          <Link to="/">Главная</Link>
+          <Link to="/" onClick={getData}>Главная</Link>
           <Link to="/professors">Учителя</Link>
           <Link to="/students">Ученики</Link>
           <Link to="/other">Прочие</Link>
