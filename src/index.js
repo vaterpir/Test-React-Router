@@ -25,7 +25,7 @@ const rootReducer = (state = initialState, action) => {
     case 'ADD_TASK':
       return { ...state, tasks: [...state.tasks, action.payload] };
     case 'CHANGE_NEW_TASK':
-      return { ...state, newTask: state.payload };
+      return { ...state, newTask: action.payload };
     default:
       return state;
   }

@@ -11,7 +11,12 @@ export const App = ({ tasks, newTask, addTask, changeNewTask }) => (
           value={newTask}
           onChange={(event) => changeNewTask(event.target.value)}
         />
-        <button onClick={() => 1}>Добавить</button>
+        <button onClick={() => addTask(newTask)}>Добавить</button>
+      </div>
+      <div className="taskList">
+        {tasks.map((task, i) => (
+          <div key={task + i}>{task}</div>
+        ))}
       </div>
     </div>
   </div>
